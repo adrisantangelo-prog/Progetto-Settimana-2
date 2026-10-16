@@ -144,13 +144,10 @@ function creaTabella() {
     prodotti.forEach(prodotto => {
         const riga = document.createElement("tr");
 
-        // Formatta il prezzo in valuta euro
-        const prezzoFormattato = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(prodotto.prezzo);
-
         riga.innerHTML = `
             <td>${prodotto.nome}</td>
             <td>${prodotto.categoria}</td>
-            <td>${prezzoFormattato}</td>
+            <td>€ ${prodotto.prezzo.toFixed(2)}</td>
             <td>${generaStelle(prodotto.rating)}</td>
         `;
         tbody.appendChild(riga);
