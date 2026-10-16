@@ -110,9 +110,9 @@ function generaStelle(voto) {
     let stelle = "";
     for (let i = 0; i < 5; i++) {
         if (i < voto) {
-            stelle += "★"; // Stella piena
+            stelle += "★"; 
         } else {
-            stelle += "☆"; // Stella vuota
+            stelle += "☆"; 
         }
     }
     return stelle;
@@ -154,7 +154,7 @@ function creaTabella() {
     });
     tabella.appendChild(tbody);
 
-    // 4. Crea il piè di pagina della tabella (tfoot) con il totale
+    // 4. Crea pagina della tabella (tfoot) con il totale
     const tfoot = document.createElement("tfoot");
     tfoot.innerHTML = `
         <tr>
