@@ -1,0 +1,174 @@
+
+const prodotti = [
+   {
+      nome: "Tablet",
+      categoria: "elettronica",
+      prezzo: 49.99,
+      rating: 4,
+      immagine: "img1.jpg",
+      disponibile: true
+   },
+   {
+      nome: "Gonna",
+      categoria: "abbigliamento",
+      prezzo: 29.50,
+      rating: 5,
+      immagine: "img2.jpg",
+      disponibile: true
+   },
+   {
+      nome: "Sapone",
+      categoria: "casa",
+      prezzo: 15.00,
+      rating: 3,
+      immagine: "img3.jpg",
+      disponibile: true
+   },
+   {
+      nome: "Cellulare",
+      categoria: "elettronica",
+      prezzo: 120.00,
+      rating: 4,
+      immagine: "img4.jpg",
+      disponibile: true
+   },
+   {
+      nome: "Maglietta",
+      categoria: "abbigliamento",
+      prezzo: 19.99,
+      rating: 2,
+      immagine: "img5.jpg",
+      disponibile: true
+   },
+   {
+      nome: "Sedia",
+      categoria: "casa",
+      prezzo: 34.90,
+      rating: 5,
+      immagine: "img6.jpg",
+      disponibile: true
+   },
+   {
+      nome: "Orologio",
+      categoria: "elettronica",
+      prezzo: 89.00,
+      rating: 3,
+      immagine: "img7.jpg",
+      disponibile: true
+   },
+   {
+      nome: "Pantalloni",
+      categoria: "abbigliamento",
+      prezzo: 45.00,
+      rating: 4,
+      immagine: "img8.jpg",
+      disponibile: true
+   },
+   {
+      nome: "Tavolo",
+      categoria: "casa",
+      prezzo: 12.50,
+      rating: 1,
+      immagine: "img9.jpg",
+      disponibile: true
+   },
+   {
+      nome: "Microfono",
+      categoria: "elettronica",
+      prezzo: 299.99,
+      rating: 5,
+      immagine: "img10.jpg",
+      disponibile: true
+   },
+   {
+      nome: "Scarpe",
+      categoria: "abbigliamento",
+      prezzo: 75.00,
+      rating: 4,
+      immagine: "img11.jpg",
+      disponibile: true
+   },
+   {
+      nome: "Frigorifero",
+      categoria: "casa",
+      prezzo: 99.00,
+      rating: 5,
+      immagine: "img12.jpg",
+      disponibile: true
+   }
+];
+
+/* VERSIONE AVANZATA — renderProdotti(lista)
+   Funzione che, dato un array di prodotti, genera la griglia nel DOM.
+   Niente HTML hard-coded per i prodotti: tutto generato dal JavaScript.
+*/
+
+/* SCRIVI QUI LA TUA RISPOSTA */
+
+// Funzione per generare le stelle del rating
+function generaStelle(voto) {
+    let stelle = "";
+    for (let i = 0; i < 5; i++) {
+        if (i < voto) {
+            stelle += "★"; // Stella piena
+        } else {
+            stelle += "☆"; // Stella vuota
+        }
+    }
+    return stelle;
+}
+
+// Funzione principale per creare e popolare l'intera tabella
+function creaTabella() {
+    const container = document.getElementById("tabella-container");
+    container.innerHTML = ""; // Svuota il contenitore
+
+    // 1. Crea l'elemento tabella di base
+    const tabella = document.createElement("table");
+    tabella.setAttribute("border", "1");
+
+    // 2. Crea l'intestazione della tabella (thead)
+    const thead = document.createElement("thead");
+    thead.innerHTML = `
+        <tr>
+            <th>NOME</th>
+            <th>CATEGORIA</th>
+            <th>PREZZO</th>
+            <th>RATING</th>
+        </tr>
+    `;
+    tabella.appendChild(thead);
+
+    // 3. Crea il corpo della tabella (tbody) e inserisci i dati dei prodotti
+    const tbody = document.createElement("tbody");
+    prodotti.forEach(prodotto => {
+        const riga = document.createElement("tr");
+
+        // Formatta il prezzo in valuta euro
+        const prezzoFormattato = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(prodotto.prezzo);
+
+        riga.innerHTML = `
+            <td>${prodotto.nome}</td>
+            <td>${prodotto.categoria}</td>
+            <td>${prezzoFormattato}</td>
+            <td>${generaStelle(prodotto.rating)}</td>
+        `;
+        tbody.appendChild(riga);
+    });
+    tabella.appendChild(tbody);
+
+    // 4. Crea il piè di pagina della tabella (tfoot) con il totale
+    const tfoot = document.createElement("tfoot");
+    tfoot.innerHTML = `
+        <tr>
+            <td colspan="4">Totale prodotti = ${prodotti.length}</td>
+        </tr>
+    `;
+    tabella.appendChild(tfoot);
+
+    // 5. Inserisce la tabella finita nel container DOM dell'HTML
+    container.appendChild(tabella);
+}
+
+// Esegue la creazione della tabella al caricamento della pagina
+window.onload = creaTabella;
