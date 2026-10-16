@@ -195,7 +195,6 @@ function filtraDisponibiliERating() {
 }
 // Sotto la funzione, salviamo i prodotti filtrati in una variabile
 let risultatiFiltro = filtraDisponibiliERating();
-
 // Cicliamo i risultati per stampare SOLO il nome e il rating a schermo
 for (let a = 0; a < risultatiFiltro.length; a++) {
     console.log(risultatiFiltro[a].nome + " - Rating: " + risultatiFiltro[a].rating);
@@ -210,6 +209,40 @@ for (let a = 0; a < risultatiFiltro.length; a++) {
 
 /* SCRIVI QUI LA TUA RISPOSTA */
 
+function renderProdotti(lista) {
+    // 1. Seleziona il contenitore HTML in cui inserire i prodotti
+    let contenitore = document.getElementById("griglia-prodotti");
+    
+    if (!contenitore) return; 
+
+    // 2. Svuota il contenitore per evitare che i prodotti si duplichino ad ogni chiamata
+    contenitore.innerHTML = " ";
+
+    // 3. Cicla l'array di prodotti ricevuto come parametro
+    for (let i = 0; i < lista.length; i++) {
+        let prodotto = lista[i];
+
+        // 4. Crea l'elemento principale della card del prodotto
+        let card = document.createElement("div");
+        card.className = "prodotto-card";
+
+        // 5. Inserisce la struttura HTML interna con i dati dinamici del prodotto
+        card.innerHTML = 
+            '<h3>' + prodotto.nome + '</h3>' +
+            '<p class="categoria">' + prodotto.categoria + '</p>' +
+            '<p class="prezzo">€ ' + prodotto.prezzo.toFixed(2) + '</p>' +
+            '<p class="rating">Rating: ' + prodotto.rating + '</p>' +
+            '<button class="btn-aggiungi">Aggiungi al carrello</button>';
+
+        // 6. Appende la card appena creata all'interno del contenitore principale
+        contenitore.appendChild(card);
+    }
+}
+
+// --- ESEMPIO DI CHIAMATA PER MOSTRARE I PRODOTTI A SCHERMO ---
+// Puoi passargli l'intero array o quello che hai filtrato in precedenza
+renderProdotti(prodotti);
+
 
 /* VERSIONE AVANZATA — Aggiungi al carrello
    Quando si clicca il bottone "Aggiungi al carrello", incrementa il contatore
@@ -219,6 +252,7 @@ for (let a = 0; a < risultatiFiltro.length; a++) {
 */
 
 /* SCRIVI QUI LA TUA RISPOSTA */
+
 
 
 /* VERSIONE AVANZATA — Ordinamento
