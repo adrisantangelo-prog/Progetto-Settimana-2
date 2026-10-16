@@ -20,98 +20,98 @@ const prodotti = [
    {
       nome: "Tablet",
       categoria: "elettronica",
-      prezzo: '49,99',
-      rating: '4',
+      prezzo: 49.99,
+      rating: 4,
       immagine: "img1.jpg",
-      disponibile: 'true'
+      disponibile: true
    },
    {
       nome: "Gonna",
       categoria: "abbigliamento",
-      prezzo: '29,50',
-      rating: '5',
+      prezzo: 29.50,
+      rating: 5,
       immagine: "img2.jpg",
-      disponibile: 'true'
+      disponibile: true
    },
    {
       nome: "Sapone",
       categoria: "casa",
-      prezzo: '15,00',
-      rating: '3',
+      prezzo: 15.00,
+      rating: 3,
       immagine: "img3.jpg",
-      disponibile: 'true'
+      disponibile: true
    },
    {
       nome: "Cellulare",
       categoria: "elettronica",
-      prezzo: '120,00',
-      rating: '4',
+      prezzo: 120.00,
+      rating: 4,
       immagine: "img4.jpg",
-      disponibile: 'true'
+      disponibile: true
    },
    {
       nome: "Maglietta",
       categoria: "abbigliamento",
-      prezzo: '19,99',
-      rating: '2',
+      prezzo: 19.99,
+      rating: 2,
       immagine: "img5.jpg",
-      disponibile: 'true'
+      disponibile: true
    },
    {
       nome: "Sedia",
       categoria: "casa",
-      prezzo: '34,90',
-      rating: '5',
+      prezzo: 34.90,
+      rating: 5,
       immagine: "img6.jpg",
-      disponibile: 'true'
+      disponibile: true
    },
    {
       nome: "Orologio",
       categoria: "elettronica",
-      prezzo: '89,00',
-      rating: '3',
+      prezzo: 89.00,
+      rating: 3,
       immagine: "img7.jpg",
-      disponibile: 'true'
+      disponibile: true
    },
    {
       nome: "Pantalloni",
       categoria: "abbigliamento",
-      prezzo: '45,00',
-      rating: '4',
+      prezzo: 45.00,
+      rating: 4,
       immagine: "img8.jpg",
-      disponibile: 'true'
+      disponibile: true
    },
    {
       nome: "Tavolo",
       categoria: "casa",
-      prezzo: '12,50',
-      rating: '1',
+      prezzo: 12.50,
+      rating: 1,
       immagine: "img9.jpg",
-      disponibile: 'true'
+      disponibile: true
    },
    {
       nome: "Microfono",
       categoria: "elettronica",
-      prezzo: '299,99',
-      rating: '5',
+      prezzo: 299.99,
+      rating: 5,
       immagine: "img10.jpg",
-      disponibile: 'true'
+      disponibile: true
    },
    {
       nome: "Scarpe",
       categoria: "abbigliamento",
-      prezzo: '75,00',
-      rating: '4',
+      prezzo: 75.00,
+      rating: 4,
       immagine: "img11.jpg",
-      disponibile: 'true'
+      disponibile: true
    },
    {
       nome: "Frigorifero",
       categoria: "casa",
-      prezzo: '99,00',
-      rating: '5',
+      prezzo: 99.00,
+      rating: 5,
       immagine: "img12.jpg",
-      disponibile: 'true'
+      disponibile: true
    }
 ];
 
@@ -126,11 +126,15 @@ const prodotti = [
 /* SCRIVI QUI LA TUA RISPOSTA */
 
 function formattaPrezzo(prezzo) {
-   return '€' + prezzo;
+   for (let i = 0; i < prodotti.length; i++) {
+      // Prende il nome e il prezzo corrispondenti alla stessa posizione
+      console.log(prodotti[i].nome + ': € ' + prodotti[i].prezzo.toFixed(2));
+   }
+
 }
-for (const prodotto of prodotti) {
-    console.log(prodotto.nome + ' : ' + formattaPrezzo(prodotto.prezzo));
-}
+
+formattaPrezzo(prodotti);
+
 /* VERSIONE INTERMEDIA — stelline(rating)
    Funzione che ritorna una stringa di stelline piene/vuote.
    Esempio: rating 3 → "★★★☆☆"
@@ -139,8 +143,19 @@ for (const prodotto of prodotti) {
 
 /* SCRIVI QUI LA TUA RISPOSTA */
 
+function formattaRating(rating) {
+    const stellePiene = "★".repeat(rating);
+    const stelleVuote = "☆".repeat(5 - rating);
+    return stellePiene + stelleVuote;
+}
 
-
+for (let i = 0; i < prodotti.length; i++) {
+    const prodotto = prodotti[i]; 
+    // Controlliamo che il prodotto abbia un rating valido prima di stamparlo
+    if (prodotto.rating !== undefined) {
+        console.log(prodotto.nome + ": rating " + prodotto.rating + " → " + formattaRating(prodotto.rating));
+    }
+}
 
 /* VERSIONE INTERMEDIA — Filtro per categoria
    Funzione che riceve il parametro categoria e filtra l'array prodotti mostrando solo i prodotti della categoria ricevuta
@@ -148,11 +163,43 @@ for (const prodotto of prodotti) {
 
 /* SCRIVI QUI LA TUA RISPOSTA */
 
+function filtraPerCategoria(categoriaCercata){
+   let prodottiFiltrati = [];
+   for(let i = 0; i < prodotti.length; i++){
+      if(prodotti[i].categoria === categoriaCercata){
+         prodottiFiltrati.push(prodotti[i]);
+      }
+   }
+   return prodottiFiltrati;
+}
+
+console.log(filtraPerCategoria('casa'));
+
 /* VERSIONE INTERMEDIA — Filtro disponibilità e rating
    Funzione che genera un array filtrato dall'array prodotti, mostrando soltanto i prodotti disponibili con rating >= 3
 */
 
 /* SCRIVI QUI LA TUA RISPOSTA */
+
+function filtraDisponibiliERating() {
+    let prodottiSelezionati = [];
+
+    for (let i = 0; i < prodotti.length; i++) {
+        // Filtra: devono essere disponibili (true) E avere rating maggiore o uguale a 3
+        if (prodotti[i].disponibile === true && prodotti[i].rating >= 3) {
+            prodottiSelezionati.push(prodotti[i]);
+        }
+    }
+
+    return prodottiSelezionati;
+}
+// Sotto la funzione, salviamo i prodotti filtrati in una variabile
+let risultatiFiltro = filtraDisponibiliERating();
+
+// Cicliamo i risultati per stampare SOLO il nome e il rating a schermo
+for (let a = 0; a < risultatiFiltro.length; a++) {
+    console.log(risultatiFiltro[a].nome + " - Rating: " + risultatiFiltro[a].rating);
+}
 
 /* --------------------------------------------------------------
 
